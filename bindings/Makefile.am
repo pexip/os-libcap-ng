@@ -1,5 +1,5 @@
 # Makefile.am --
-# Copyright 2009 Red Hat Inc., Durham, North Carolina.
+# Copyright 2009,2015 Red Hat Inc., Durham, North Carolina.
 # All Rights Reserved.
 #
 # This library is free software; you can redistribute it and/or
@@ -21,9 +21,11 @@
 #
 
 CONFIG_CLEAN_FILES = *.loT *.rej *.orig
-SUBDIRS = 
+SUBDIRS = src 
 
 if HAVE_PYTHON
 SUBDIRS += python
 endif
-
+if USE_PYTHON3
+SUBDIRS += python3
+endif

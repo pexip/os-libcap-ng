@@ -8,29 +8,12 @@
 
 export DEB_BUILD_HARDENING=1
 
-PYTHON2=$(shell pyversions -vr)
-
-build-python%: build-lib
-	vers="$*"; \
-	pythonvers="python$*"; \
-	echo "python $$pythonvers"; \
-	PYFLAGS="PYTHON_VERSION=$$vers _capng_la_LIBADD=\"-l$$pythonvers\""; \
-	sed -i "s/2\.[4567]/$$vers/" bindings/python/Makefile; \
-	$(MAKE) -C bindings/python clean; \
-	$(MAKE) -C bindings/python $$PYFLAGS; \
-	$(MAKE) -C bindings/python $$PYFLAGS DESTDIR=$(CURDIR)/debian/tmp-python-cap-ng install; \
-	echo "OK"
-
-override_dh_auto_build: build-lib $(PYTHON2:%=build-python%)
-
-build-lib:
-	dh_auto_build
-
-override_dh_auto_install:
-	dh_auto_install ;\
-	rm -rf debian/tmp/usr/lib/python*; \
-	find debian/tmp-python-cap-ng/usr/lib -name "*.la" -delete; \
-	mv debian/tmp-python-cap-ng/usr/lib/* debian/tmp/usr/lib/
+override_dh_install:
+	mkdir -p $(CURDIR)/debian/tmp/lib/$(DEB_HOST_MULTIARCH) && \
+	mv $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/lib*.so.0* $(CURDIR)/debian/tmp/lib/$(DEB_HOST_MULTIARCH)/; \
+	rm debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libcap-ng.so; \
+	ln -s ../../../lib/$(DEB_HOST_MULTIARCH)/libcap-ng.so.0.0.0 debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libcap-ng.so; \
+	dh_install --exclude=.la
 
 override_dh_auto_clean:
 	dh_auto_clean
@@ -38,7 +21,8 @@ override_dh_auto_clean:
 
 override_dh_auto_test:
 	# do nothing, some tests are failing because of failing relink
+	:
 
 %:
-	dh $@ --with=python2,autoreconf
+	dh $@ --with=python2,python3,autoreconf
 
