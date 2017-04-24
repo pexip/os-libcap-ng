@@ -1,6 +1,7 @@
 Source: libcap-ng
 Priority: optional
-Maintainer: Pierre Chifflier <pollux@debian.org>
+Maintainer: Pexip AS <packaging@pexip.com>
+XSBC-Pexip-Original-Maintainer: Pierre Chifflier <pollux@debian.org>
 Build-Depends: debhelper (>= 9),
     dh-autoreconf,
     autotools-dev,
@@ -12,6 +13,7 @@ Standards-Version: 3.9.5
 Section: libs
 X-Python-Version: >= 2.6
 Homepage: http://people.redhat.com/sgrubb/libcap-ng
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ jessie
 
 Package: libcap-ng-dev
 Section: libdevel
