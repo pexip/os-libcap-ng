@@ -19,24 +19,24 @@
 # Authors:
 #   Steve Grubb <sgrubb@redhat.com>
 #
-SUBDIRS = test
+#SUBDIRS = test
 CONFIG_CLEAN_FILES = *.loT *.rej *.orig
-AM_CFLAGS = -fPIC -DPIC
-PYLIBVER ?= python$(PYTHON_VERSION)
-AM_CPPFLAGS = -I. -I$(top_builddir) -I@PYINCLUDEDIR@
-LIBS = $(top_builddir)/src/libcap-ng.la
-SWIG_FLAGS = -python
+AM_CFLAGS = -fPIC -DPIC $(PYTHON3_CFLAGS)
+AM_CPPFLAGS = -I. -I$(top_builddir) $(PYTHON3_INCLUDES)
+SWIG_FLAGS = -python -py3 -modern
 SWIG_INCLUDES = ${AM_CPPFLAGS}
-pyexec_PYTHON = capng.py
-pyexec_LTLIBRARIES = _capng.la
-pyexec_SOLIBRARIES = _capng.so
+py3exec_PYTHON = capng.py
+py3exec_LTLIBRARIES = _capng.la
+py3exec_SOLIBRARIES = _capng.so
 _capng_la_CFLAGS = -shared
 _capng_la_LDFLAGS = -module -avoid-version -shared
 _capng_la_HEADERS: $(top_builddir)/config.h 
 _capng_la_DEPENDENCIES =${top_srcdir}/src/cap-ng.h ${top_builddir}/src/libcap-ng.la
+_capng_py_la_LIBADD = $(top_builddir)/src/libcap-ng.la
 nodist__capng_la_SOURCES  = capng_wrap.c
+
 capng.py capng_wrap.c: ${srcdir}/../src/capng_swig.i caps.h capng.h
-	swig -o capng_wrap.c ${SWIG_FLAGS} ${SWIG_INCLUDES} ${srcdir}/../src/capng_swig.i 
+	swig -o capng_wrap.c ${SWIG_FLAGS} ${SWIG_INCLUDES} ${srcdir}/../src/capng_swig.i
 caps.h:
 	cat /usr/include/linux/capability.h | grep '^#define CAP'  | grep -v '[()]' > caps.h
 capng.h:
