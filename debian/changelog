@@ -1,3 +1,9 @@
+libcap-ng (0.7.7-3pexip1) pexip; urgency=medium
+
+  * Migrate to Stretch
+
+ -- John-Mark Bell <jmb@pexip.com>  Tue, 10 Jul 2018 00:19:55 +0000
+
 libcap-ng (0.7.7-3) unstable; urgency=high
 
   * Install libcap-ng so file to /lib (Closes: #829126, #828992)
