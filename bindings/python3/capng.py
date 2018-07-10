@@ -47,10 +47,7 @@ def _swig_setattr_nondynamic(self, class_type, name, value, static=1):
     if method:
         return method(self, value)
     if (not static):
-        if _newclass:
-            object.__setattr__(self, name, value)
-        else:
-            self.__dict__[name] = value
+        object.__setattr__(self, name, value)
     else:
         raise AttributeError("You cannot add attributes to %s" % self)
 
@@ -88,6 +85,18 @@ except AttributeError:
     class _object:
         pass
     _newclass = 0
+
+
+
+def _swig_setattr_nondynamic_method(set):
+    def set_attr(self, name, value):
+        if (name == "thisown"):
+            return self.this.own(value)
+        if hasattr(self, name) or (name == "this"):
+            set(self, name, value)
+        else:
+            raise AttributeError("You cannot add attributes to %s" % self)
+    return set_attr
 
 
 
@@ -265,73 +274,72 @@ CAPNG_CLEAR_BOUNDING = _capng.CAPNG_CLEAR_BOUNDING
 _capng.CAPNG_INIT_SUPP_GRP_swigconstant(_capng)
 CAPNG_INIT_SUPP_GRP = _capng.CAPNG_INIT_SUPP_GRP
 
-def capng_clear(set):
+def capng_clear(set: 'capng_select_t') -> "void":
     return _capng.capng_clear(set)
 capng_clear = _capng.capng_clear
 
-def capng_fill(set):
+def capng_fill(set: 'capng_select_t') -> "void":
     return _capng.capng_fill(set)
 capng_fill = _capng.capng_fill
 
-def capng_setpid(pid):
+def capng_setpid(pid: 'int') -> "void":
     return _capng.capng_setpid(pid)
 capng_setpid = _capng.capng_setpid
 
-def capng_get_caps_process():
+def capng_get_caps_process() -> "int":
     return _capng.capng_get_caps_process()
 capng_get_caps_process = _capng.capng_get_caps_process
 
-def capng_update(action, type, capability):
+def capng_update(action: 'capng_act_t', type: 'capng_type_t', capability: 'unsigned int') -> "int":
     return _capng.capng_update(action, type, capability)
 capng_update = _capng.capng_update
 
-def capng_updatev(action, type, capability):
+def capng_updatev(action: 'capng_act_t', type: 'capng_type_t', capability: 'unsigned int') -> "int":
     return _capng.capng_updatev(action, type, capability)
 capng_updatev = _capng.capng_updatev
 
-def capng_apply(set):
+def capng_apply(set: 'capng_select_t') -> "int":
     return _capng.capng_apply(set)
 capng_apply = _capng.capng_apply
 
-def capng_lock():
+def capng_lock() -> "int":
     return _capng.capng_lock()
 capng_lock = _capng.capng_lock
 
-def capng_change_id(uid, gid, flag):
+def capng_change_id(uid: 'int', gid: 'int', flag: 'capng_flags_t') -> "int":
     return _capng.capng_change_id(uid, gid, flag)
 capng_change_id = _capng.capng_change_id
 
-def capng_get_caps_fd(fd):
+def capng_get_caps_fd(fd: 'int') -> "int":
     return _capng.capng_get_caps_fd(fd)
 capng_get_caps_fd = _capng.capng_get_caps_fd
 
-def capng_apply_caps_fd(fd):
+def capng_apply_caps_fd(fd: 'int') -> "int":
     return _capng.capng_apply_caps_fd(fd)
 capng_apply_caps_fd = _capng.capng_apply_caps_fd
 
-def capng_have_capabilities(set):
+def capng_have_capabilities(set: 'capng_select_t') -> "capng_results_t":
     return _capng.capng_have_capabilities(set)
 capng_have_capabilities = _capng.capng_have_capabilities
 
-def capng_have_capability(which, capability):
+def capng_have_capability(which: 'capng_type_t', capability: 'unsigned int') -> "int":
     return _capng.capng_have_capability(which, capability)
 capng_have_capability = _capng.capng_have_capability
 
-def capng_print_caps_numeric(where, set):
+def capng_print_caps_numeric(where: 'capng_print_t', set: 'capng_select_t') -> "char *":
     return _capng.capng_print_caps_numeric(where, set)
 capng_print_caps_numeric = _capng.capng_print_caps_numeric
 
-def capng_print_caps_text(where, which):
+def capng_print_caps_text(where: 'capng_print_t', which: 'capng_type_t') -> "char *":
     return _capng.capng_print_caps_text(where, which)
 capng_print_caps_text = _capng.capng_print_caps_text
 
-def capng_name_to_capability(name):
+def capng_name_to_capability(name: 'char const *') -> "int":
     return _capng.capng_name_to_capability(name)
 capng_name_to_capability = _capng.capng_name_to_capability
 
-def capng_capability_to_name(capability):
+def capng_capability_to_name(capability: 'unsigned int') -> "char const *":
     return _capng.capng_capability_to_name(capability)
 capng_capability_to_name = _capng.capng_capability_to_name
-# This file is compatible with both classic and new-style classes.
 
 

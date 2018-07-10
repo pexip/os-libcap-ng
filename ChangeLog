@@ -1,3 +1,16 @@
+0.7.7
+- Make sure all types used in _lnode are defined in proc-llist.h
+- Fix python binding test for old kernels
+- Fix leaked FD in library init 
+
+0.7.6
+- Fix python3 support
+
+0.7.5
+- Make python3 supported
+- In python bindings test, clamp CAP_LAST_CAP with /proc/.../cap_last_cap
+- Update table for 3.16 kernel
+
 0.7.4
 - In pscap, remove unused code
 - Add CAPNG_INIT_SUPP_GRP to capng_change_id
