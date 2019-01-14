@@ -8,6 +8,11 @@
 
 export DEB_BUILD_HARDENING=1
 
+ifneq ($(filter nopython,$(DEB_BUILD_PROFILES)),)
+override_dh_auto_configure:
+	dh_auto_configure -- --without-python --without-python3
+endif
+
 override_dh_install:
 	mkdir -p $(CURDIR)/debian/tmp/lib/$(DEB_HOST_MULTIARCH) && \
 	mv $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/lib*.so.0* $(CURDIR)/debian/tmp/lib/$(DEB_HOST_MULTIARCH)/; \
@@ -24,5 +29,8 @@ override_dh_auto_test:
 	:
 
 %:
+ifeq ($(filter nopython,$(DEB_BUILD_PROFILES)),)
 	dh $@ --with=python2,python3,autoreconf
-
+else
+	dh $@ --with=autoreconf
+endif

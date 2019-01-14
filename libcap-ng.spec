@@ -2,7 +2,7 @@
 
 Summary: An alternate posix capabilities library
 Name: libcap-ng
-Version: 0.7.7
+Version: 0.7.9
 Release: 1
 License: LGPLv2+
 Group: System Environment/Libraries
@@ -27,16 +27,21 @@ Requires: pkgconfig
 The libcap-ng-devel package contains the files needed for developing
 applications that need to use the libcap-ng library.
 
-%package python
-Summary: Python bindings for libcap-ng library
+%package -n python2-libcap-ng
+%{?python_provide:%python_provide python2-libcap-ng}
+# Remove in future
+Summary: Python2 bindings for libcap-ng library
 License: LGPLv2+
 Group: Development/Libraries
-BuildRequires: python-devel swig
+BuildRequires: python2-devel swig
 Requires: %{name} = %{version}-%{release}
+Provides: %{name}-python = %{version}-%{release}
+Provides: %{name}-python%{?_isa} = %{version}-%{release}
+Obsoletes: %{name}-python < %{version}-%{release}
 
-%description python
-The libcap-ng-python package contains the bindings so that libcap-ng
-and can be used by python applications.
+%description python2-libcap-ng
+The python2-libcap-ng package contains the bindings so that libcap-ng
+and can be used by python2 applications.
 
 %package python3
 Summary: Python3 bindings for libcap-ng library
@@ -110,14 +115,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0644,root,root) %{_datadir}/aclocal/cap-ng.m4
 %{_libdir}/pkgconfig/libcap-ng.pc
 
-%files python
+%files -n python2-libcap-ng
 %defattr(-,root,root,-)
-%attr(755,root,root) /%{_libdir}/python?.?/site-packages/_capng.so
-%{python_sitearch}/capng.py*
+%attr(755,root,root) %{python2_sitearch}/_capng.so
+%{python2_sitearch}/capng.py*
 
 %files python3
 %defattr(-,root,root,-)
-%attr(755,root,root) /%{_libdir}/python3.?/site-packages/*
+%attr(755,root,root) %{python3_sitearch}/*
 %{python3_sitearch}/capng.py*
 
 %files utils
@@ -127,6 +132,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(0644,root,root) %{_mandir}/man8/*
 
 %changelog
-* Wed May 13 2015 Steve Grubb <sgrubb@redhat.com> 0.7.7-1
+* Wed Feb 07 2018 Steve Grubb <sgrubb@redhat.com> 0.7.9-1
 - New upstream release
 
