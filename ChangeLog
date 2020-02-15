@@ -1,3 +1,17 @@
+0.7.9
+- Fix byte compiling python3 bindings
+- Detect and output a couple errors in filecap
+- Use pthread_atfork to optionally reset the pid and related info on fork
+- Rework spec file to show new python2/3 separation
+
+0.7.8
+- Improve Python3 support
+- Fix the thread separation test
+- Correct typo in cap_pacct text
+- Update man page for captest
+- Fix sscanf string lengths in netcap
+- Correct linking of python3 module
+
 0.7.7
 - Make sure all types used in _lnode are defined in proc-llist.h
 - Fix python binding test for old kernels
