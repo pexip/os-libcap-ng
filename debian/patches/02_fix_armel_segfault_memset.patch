@@ -1,8 +1,8 @@
 Index: libcap-ng/src/cap-ng.c
 ===================================================================
---- libcap-ng.orig/src/cap-ng.c	2011-06-11 16:27:05.000000000 +0200
-+++ libcap-ng/src/cap-ng.c	2012-06-16 22:28:05.181687824 +0200
-@@ -136,6 +136,11 @@
+--- libcap-ng.orig/src/cap-ng.c
++++ libcap-ng/src/cap-ng.c
+@@ -146,6 +146,11 @@ struct cap_ng
  	__u32 bounds[2];
  };
  
@@ -14,7 +14,7 @@ Index: libcap-ng/src/cap-ng.c
  // Global variables with per thread uniqueness
  static __thread struct cap_ng m =	{ 1,
  					{0, 0},
-@@ -149,7 +154,7 @@
+@@ -182,7 +187,7 @@ static void init(void)
  	if (m.state != CAPNG_NEW)
  		return;
  
@@ -23,7 +23,7 @@ Index: libcap-ng/src/cap-ng.c
  	(void)capget(&m.hdr, NULL); // Returns -EINVAL
  	if (m.hdr.version == _LINUX_CAPABILITY_VERSION_3 ||
  		m.hdr.version == _LINUX_CAPABILITY_VERSION_2) {
-@@ -161,7 +166,7 @@
+@@ -194,7 +199,7 @@ static void init(void)
  		return;
  	}
  
@@ -32,7 +32,7 @@ Index: libcap-ng/src/cap-ng.c
  #ifdef HAVE_SYSCALL_H
  	m.hdr.pid = (unsigned)syscall(__NR_gettid);
  #else
-@@ -178,10 +183,13 @@
+@@ -236,10 +241,13 @@ void capng_clear(capng_select_t set)
  		return;
  
  	if (set & CAPNG_SELECT_CAPS)

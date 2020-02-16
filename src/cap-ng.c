@@ -1,5 +1,5 @@
 /* libcap-ng.c --
- * Copyright 2009-10, 2013 Red Hat Inc., Durham, North Carolina.
+ * Copyright 2009-10, 2013, 2017 Red Hat Inc., Durham, North Carolina.
  * All Rights Reserved.
  *
  * This library is free software; you can redistribute it and/or
@@ -31,10 +31,10 @@
 #include <pwd.h>
 #include <grp.h>
 #include <sys/stat.h>
-#include <stdarg.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <byteswap.h>
+#include <pthread.h>	// For pthread_atfork
 #ifdef HAVE_SYSCALL_H
 #include <sys/syscall.h>
 #endif
@@ -154,6 +154,29 @@ static __thread struct cap_ng m =	{ 1,
 					{0, 0} };
 
 
+/*
+ * The pthread_atfork function is being made weak so that we can use it
+ * if the program is linked with pthreads and not requiring it for
+ * everything that uses libcap-ng.
+ */
+extern int __attribute__((weak)) pthread_atfork(void (*prepare)(void),
+	void (*parent)(void), void (*child)(void));
+
+/*
+ * Reset the state so that init gets called to erase everything
+ */
+static void deinit(void)
+{
+	m.state = CAPNG_NEW;
+}
+
+static void init_lib(void) __attribute__ ((constructor));
+static void init_lib(void)
+{
+	if (pthread_atfork)
+		pthread_atfork(NULL, NULL, deinit);
+}
+
 static void init(void)
 {
 	if (m.state != CAPNG_NEW)
@@ -268,11 +291,11 @@ static int get_bounding_set(void)
 	char buf[64];
 	FILE *f;
 
-	snprintf(buf, sizeof(buf), "/proc/%u/status", m.hdr.pid ? m.hdr.pid :
+	snprintf(buf, sizeof(buf), "/proc/%d/status", m.hdr.pid ? m.hdr.pid :
 #ifdef HAVE_SYSCALL_H
-		(unsigned)syscall(__NR_gettid));
+		(int)syscall(__NR_gettid));
 #else
-		(unsigned)getpid();
+		(int)getpid();
 #endif
 	f = fopen(buf, "re");
 	if (f == NULL)
@@ -940,8 +963,7 @@ char *capng_print_caps_numeric(capng_print_t where, capng_select_t set)
 
 char *capng_print_caps_text(capng_print_t where, capng_type_t which)
 {
-	unsigned int i; 
-	int once = 0, cnt = 0;
+	int i, once = 0, cnt = 0;
 	char *ptr = NULL;
 
 	if (m.state < CAPNG_INIT)

@@ -1,3 +1,32 @@
+libcap-ng (0.7.9-2) unstable; urgency=medium
+
+  * Refreshed quilt patches
+  * Import patch: fix mark the DSOs as unloadable
+    Thanks to Laurent Bigonville.
+    (Closes: #914565, #915642, #904808)
+  * Drop X-Python-Version fields, versions are ok since oldstable now
+
+ -- Pierre Chifflier <pollux@debian.org>  Mon, 14 Jan 2019 13:33:52 +0100
+
+libcap-ng (0.7.9-1) unstable; urgency=medium
+
+  * New upstream version 0.7.9 (Closes: #896314, #725926)
+  * Add symbols file (Closes: #829061)
+
+ -- Pierre Chifflier <pollux@debian.org>  Sat, 28 Apr 2018 17:10:47 +0200
+
+libcap-ng (0.7.7-3.1) unstable; urgency=medium
+
+  [ Manuel A. Fernandez Montecelo ]
+  * Non-maintainer upload.
+
+  [ Helmut Grohne ]
+  * Add nopython build profile (Closes: #831362)
+  * Fix FTCBFS: make python-related Build-Depends cross-satisfiable
+    (Closes: #840848)
+
+ -- Manuel A. Fernandez Montecelo <mafm@debian.org>  Mon, 25 Sep 2017 00:43:37 +0200
+
 libcap-ng (0.7.7-3+b1pexip1) pexip; urgency=medium
 
   * Migrate to Stretch

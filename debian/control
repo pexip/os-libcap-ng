@@ -4,17 +4,17 @@ Maintainer: Pexip AS <packaging@pexip.com>
 XSBC-Pexip-Original-Maintainer: Pierre Chifflier <pollux@debian.org>
 Build-Depends: debhelper (>= 9),
     dh-autoreconf,
-    dh-python,
+    dh-python <!nopython>,
     autotools-dev,
     libattr1-dev,
     linux-kernel-headers,
-    swig,
-    python-all-dev,
-    python3-dev
+    swig <!nopython>,
+    libpython-all-dev <!nopython>,
+    libpython3-dev <!nopython>,
+    python-all-dev:any <!nopython>,
+    python3-dev:any <!nopython>
 Standards-Version: 3.9.8
 Section: libs
-X-Python-Version: >= 2.6
-X-Python3-Version: >= 3.4
 Homepage: http://people.redhat.com/sgrubb/libcap-ng
 XS-Pexip-Upstream: http://ftp.debian.org/debian/ buster
 
@@ -67,6 +67,7 @@ Package: python-cap-ng
 Section: python
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Build-Profiles: <!nopython>
 Description: Python bindings for libcap-ng
  This library implements the user-space interfaces to the POSIX
  1003.1e capabilities available in Linux kernels.  These capabilities are
@@ -83,6 +84,7 @@ Section: python
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
 Provides: ${python3:Provides}
+Build-Profiles: <!nopython>
 Description: Python3 bindings for libcap-ng
  This library implements the user-space interfaces to the POSIX
  1003.1e capabilities available in Linux kernels.  These capabilities are
