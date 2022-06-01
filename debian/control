@@ -6,12 +6,9 @@ Build-Depends: debhelper (>= 9),
     dh-autoreconf,
     dh-python <!nopython>,
     autotools-dev,
-    libattr1-dev,
     linux-libc-dev,
     swig <!nopython>,
-    libpython-all-dev <!nopython>,
     libpython3-dev <!nopython>,
-    python-all-dev:any <!nopython>,
     python3-dev:any <!nopython>
 Standards-Version: 3.9.8
 Section: libs
@@ -62,22 +59,6 @@ Description: Utilities for analysing and setting file capabilities
  capabilities much easier than the traditional libcap library.
  .
  This package contains utilities for analysing and setting file capabilities.
-
-Package: python-cap-ng
-Section: python
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
-Build-Profiles: <!nopython>
-Description: Python bindings for libcap-ng
- This library implements the user-space interfaces to the POSIX
- 1003.1e capabilities available in Linux kernels.  These capabilities are
- a partitioning of the all powerful root privilege into a set of distinct
- privileges.
- .
- The libcap-ng library is intended to make programming with POSIX
- capabilities much easier than the traditional libcap library.
- .
- This package contains the Python bindings for libcap-ng.
 
 Package: python3-cap-ng
 Section: python

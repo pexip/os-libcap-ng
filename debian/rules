@@ -30,7 +30,7 @@ override_dh_auto_test:
 
 %:
 ifeq ($(filter nopython,$(DEB_BUILD_PROFILES)),)
-	dh $@ --with=python2,python3,autoreconf
+	dh $@ --with=python3,autoreconf
 else
 	dh $@ --with=autoreconf
 endif

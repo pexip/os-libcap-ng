@@ -1,3 +1,20 @@
+libcap-ng (0.7.9-2.2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * d/control
+    - Remove dependency on linux-kernel-headers closes: #959225
+    - Remove libattr1-dev as build dependency closes: #953925
+    - Build for default python3 version closes: #943627
+
+ -- Håvard Flaget Aasen <haavard_aasen@yahoo.no>  Tue, 19 May 2020 14:54:57 +0200
+
+libcap-ng (0.7.9-2.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Drop python2 support; Closes: #936845
+
+ -- Sandro Tosi <morph@debian.org>  Thu, 17 Oct 2019 17:30:59 -0400
+
 libcap-ng (0.7.9-2pexip3) pexip; urgency=medium
 
   * Fix build-dependency for newer kernel package naming.
