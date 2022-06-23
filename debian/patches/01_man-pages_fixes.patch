@@ -1,0 +1,398 @@
+From: Håvard F. Aasen <havard.f.aasen@pfft.no>
+Date: Thu, 26 May 2022 21:30:00 +0000
+Subject: Man page (#36)
+
+* Man-pages: Fix minor typo's and remove end-of-line whitespace.
+
+* Man-pages: Minor fix in the 'SEE ALSO' section.
+
+List all related man-pages on separate lines, with the correct macro.
+
+* Man-pages: Update whatis entries.
+
+- Add missing whatis entry in `capng_apply_caps_fd.3`
+- Reword whatis entry in `capng_get_caps_fd.3`, for consistency.
+
+Forwarded: https://github.com/stevegrubb/libcap-ng/pull/36
+---
+ docs/capng_apply.3              | 2 +-
+ docs/capng_apply_caps_fd.3      | 4 ++--
+ docs/capng_capability_to_name.3 | 2 +-
+ docs/capng_change_id.3          | 2 +-
+ docs/capng_clear.3              | 2 +-
+ docs/capng_fill.3               | 3 ++-
+ docs/capng_get_caps_fd.3        | 4 ++--
+ docs/capng_get_caps_process.3   | 4 ++--
+ docs/capng_get_rootid.3         | 2 +-
+ docs/capng_have_capabilities.3  | 4 ++--
+ docs/capng_have_capability.3    | 4 ++--
+ docs/capng_lock.3               | 2 +-
+ docs/capng_name_to_capability.3 | 2 +-
+ docs/capng_print_caps_numeric.3 | 3 ++-
+ docs/capng_print_caps_text.3    | 5 +++--
+ docs/capng_restore_state.3      | 2 +-
+ docs/capng_save_state.3         | 2 +-
+ docs/capng_set_rootid.3         | 2 +-
+ docs/capng_setpid.3             | 8 ++++----
+ docs/capng_update.3             | 4 ++--
+ docs/capng_updatev.3            | 4 ++--
+ 21 files changed, 35 insertions(+), 32 deletions(-)
+
+diff --git a/docs/capng_apply.3 b/docs/capng_apply.3
+index 59488bb..fe45cba 100644
+--- a/docs/capng_apply.3
++++ b/docs/capng_apply.3
+@@ -42,7 +42,7 @@ Also, bits in the bounding set can only be dropped. You cannot set them. After d
+ 
+ .BR capset (2),
+ .BR capng_update (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_apply_caps_fd.3 b/docs/capng_apply_caps_fd.3
+index 6e260ef..832e29f 100644
+--- a/docs/capng_apply_caps_fd.3
++++ b/docs/capng_apply_caps_fd.3
+@@ -1,6 +1,6 @@
+ .TH "CAPNG_APPLY_CAPS_FD" "3" "Sept 2020" "Red Hat" "Libcap-ng API"
+ .SH NAME
+-capng_apply_caps_fd \- 
++capng_apply_caps_fd \- write file-based capabilities to extended attributes
+ .SH "SYNOPSIS"
+ .B #include <cap-ng.h>
+ .sp
+@@ -18,7 +18,7 @@ This returns 0 on success, -1 if something besides a regular file is passed, and
+ .SH "SEE ALSO"
+ 
+ .BR capng_get_caps_fd (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_capability_to_name.3 b/docs/capng_capability_to_name.3
+index 98c3dbf..78a4101 100644
+--- a/docs/capng_capability_to_name.3
++++ b/docs/capng_capability_to_name.3
+@@ -17,7 +17,7 @@ This returns a NULL pointer on failure and the correct string otherwise.
+ .SH "SEE ALSO"
+ 
+ .BR capng_name_to_capability (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_change_id.3 b/docs/capng_change_id.3
+index e5698cb..a13e51a 100644
+--- a/docs/capng_change_id.3
++++ b/docs/capng_change_id.3
+@@ -67,7 +67,7 @@ Note: the only safe action to do upon failure of this function is to probably ex
+ .BR capng_update (3),
+ .BR capng_apply (3),
+ .BR prctl (2),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_clear.3 b/docs/capng_clear.3
+index 811e4cb..f5f490f 100644
+--- a/docs/capng_clear.3
++++ b/docs/capng_clear.3
+@@ -16,7 +16,7 @@ None.
+ 
+ .SH "SEE ALSO"
+ 
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_fill.3 b/docs/capng_fill.3
+index 99b3119..3d9b9ef 100644
+--- a/docs/capng_fill.3
++++ b/docs/capng_fill.3
+@@ -20,7 +20,8 @@ During capng_apply, bits in the bounding set can only be dropped. You cannot set
+ 
+ .SH "SEE ALSO"
+ 
+-.BR capabilities (7), capng_apply (3)
++.BR capng_apply (3),
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_get_caps_fd.3 b/docs/capng_get_caps_fd.3
+index 206de17..c341b9e 100644
+--- a/docs/capng_get_caps_fd.3
++++ b/docs/capng_get_caps_fd.3
+@@ -1,6 +1,6 @@
+ .TH "CAPNG_GET_CAPS_FD" "3" "June 2009" "Red Hat" "Libcap-ng API"
+ .SH NAME
+-capng_get_caps_fd \- Read file based capabilities
++capng_get_caps_fd \- read file-based capabilities from extended attributes
+ .SH "SYNOPSIS"
+ .B #include <cap-ng.h>
+ .sp
+@@ -17,7 +17,7 @@ This returns 0 on success and -1 on failure.
+ .SH "SEE ALSO"
+ 
+ .BR capng_set_caps_fd (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_get_caps_process.3 b/docs/capng_get_caps_process.3
+index 1af22c4..274be6c 100644
+--- a/docs/capng_get_caps_process.3
++++ b/docs/capng_get_caps_process.3
+@@ -16,14 +16,14 @@ This returns 0 on success and -1 on failure.
+ 
+ .SH NOTES
+ 
+-If you are doing multi-threaded programming, calling this function will only get capabilities on the calling thread. If you want to get overall capabilities for a multi-threaded process, you can only do that before creating any threads. Afterwards, threads may be able to independantly set capabilities.
++If you are doing multi-threaded programming, calling this function will only get capabilities on the calling thread. If you want to get overall capabilities for a multi-threaded process, you can only do that before creating any threads. Afterwards, threads may be able to independently set capabilities.
+ 
+ capng_get_caps_process needs a mounted /proc to read the current bounding set, otherwise it will fail.
+ 
+ .SH "SEE ALSO"
+ 
+ .BR capng_setpid (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_get_rootid.3 b/docs/capng_get_rootid.3
+index 2d5d6f5..a6dbc58 100644
+--- a/docs/capng_get_rootid.3
++++ b/docs/capng_get_rootid.3
+@@ -17,7 +17,7 @@ If the file is in the init namespace or the kernel does not support V3 file syst
+ .SH "SEE ALSO"
+ 
+ .BR capng_get_caps_fd (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_have_capabilities.3 b/docs/capng_have_capabilities.3
+index 196c90c..fc96854 100644
+--- a/docs/capng_have_capabilities.3
++++ b/docs/capng_have_capabilities.3
+@@ -18,14 +18,14 @@ was created. It takes no arguments because it simply checks the permitted set.
+ 
+ .SH "RETURN VALUE"
+ 
+-This funtion will return one of the following four self explanatory values: CAPNG_FAIL, CAPNG_NONE, CAPNG_PARTIAL, CAPNG_FULL.
++This function will return one of the following four self explanatory values: CAPNG_FAIL, CAPNG_NONE, CAPNG_PARTIAL, CAPNG_FULL.
+ 
+ .SH "SEE ALSO"
+ 
+ .BR capng_get_caps_process (3),
+ .BR capng_get_caps_fd (3),
+ .BR capng_have_capability (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_have_capability.3 b/docs/capng_have_capability.3
+index a7efc14..4239d10 100644
+--- a/docs/capng_have_capability.3
++++ b/docs/capng_have_capability.3
+@@ -12,14 +12,14 @@ capng_have_capability will check the specified internal capabilities set to see
+ 
+ .SH "RETURN VALUE"
+ 
+-This funtion will return 1 if yes and 0 otherwise.
++This function will return 1 if yes and 0 otherwise.
+ 
+ .SH "SEE ALSO"
+ 
+ .BR capng_get_caps_process (3),
+ .BR capng_get_caps_fd (3),
+ .BR capng_have_capabilities (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_lock.3 b/docs/capng_lock.3
+index 7683119..55d0ccb 100644
+--- a/docs/capng_lock.3
++++ b/docs/capng_lock.3
+@@ -19,7 +19,7 @@ This returns 0 on success and a negative number on failure. -1 means a failure s
+ 
+ .BR capng_apply (3),
+ .BR prctl (2),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_name_to_capability.3 b/docs/capng_name_to_capability.3
+index 36950a0..ec8f9dd 100644
+--- a/docs/capng_name_to_capability.3
++++ b/docs/capng_name_to_capability.3
+@@ -17,7 +17,7 @@ This returns a negative number on failure and the correct define otherwise.
+ .SH "SEE ALSO"
+ 
+ .BR capng_capability_to_name (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_print_caps_numeric.3 b/docs/capng_print_caps_numeric.3
+index ae633b8..049810f 100644
+--- a/docs/capng_print_caps_numeric.3
++++ b/docs/capng_print_caps_numeric.3
+@@ -18,7 +18,8 @@ If CAPNG_PRINT_BUFFER was selected for where, this will be the text buffer and N
+ 
+ .SH "SEE ALSO"
+ 
+-.BR capng_print_caps_text (3) , capabilities (7) 
++.BR capng_print_caps_text (3),
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_print_caps_text.3 b/docs/capng_print_caps_text.3
+index 9e42ca8..84e8aa9 100644
+--- a/docs/capng_print_caps_text.3
++++ b/docs/capng_print_caps_text.3
+@@ -10,7 +10,7 @@ char *capng_print_caps_text(capng_print_t where, capng_type_t which);
+ 
+ capng_print_caps_text will create a text string representation of the internal capability set specified. The representation can be sent to either stdout or a buffer by passing CAPNG_PRINT_STDOUT or CAPNG_PRINT_BUFFER respectively for the where parameter. If the option was for a buffer, this function will malloc a buffer that the caller must free.
+ 
+-The legal values for the which paramemeter is CAPNG_EFFECTIVE, CAPNG_PERMITTED, CAPNG_INHERITABLE, CAPNG_BOUNDING_SET, or CAPNG_AMBIENT.
++The legal values for the which parameter is CAPNG_EFFECTIVE, CAPNG_PERMITTED, CAPNG_INHERITABLE, CAPNG_BOUNDING_SET, or CAPNG_AMBIENT.
+ 
+ .SH "RETURN VALUE"
+ 
+@@ -18,7 +18,8 @@ If CAPNG_PRINT_BUFFER was selected for where, this will be the text buffer and N
+ 
+ .SH "SEE ALSO"
+ 
+-.BR capng_print_caps_numeric (3) , capabilities (7) 
++.BR capng_print_caps_numeric (3),
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_restore_state.3 b/docs/capng_restore_state.3
+index c8974ff..8b5d4b3 100644
+--- a/docs/capng_restore_state.3
++++ b/docs/capng_restore_state.3
+@@ -24,7 +24,7 @@ can be used to update it.
+ .SH "SEE ALSO"
+ 
+ .BR capng_save_state (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_save_state.3 b/docs/capng_save_state.3
+index 442aa94..f177acb 100644
+--- a/docs/capng_save_state.3
++++ b/docs/capng_save_state.3
+@@ -21,7 +21,7 @@ The structure returned by capng_save_state is malloc'd;  it should be free'd if
+ .SH "SEE ALSO"
+ 
+ .BR capng_restore_state (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_set_rootid.3 b/docs/capng_set_rootid.3
+index 1fe72ba..706c171 100644
+--- a/docs/capng_set_rootid.3
++++ b/docs/capng_set_rootid.3
+@@ -17,7 +17,7 @@ On success, it returns 0. It returns -1 if there is an internal error or the ker
+ .SH "SEE ALSO"
+ 
+ .BR capng_set_caps_fd (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_setpid.3 b/docs/capng_setpid.3
+index e21dffe..320f117 100644
+--- a/docs/capng_setpid.3
++++ b/docs/capng_setpid.3
+@@ -12,11 +12,11 @@ capng_pid sets the working pid for capabilities operations. This is useful if yo
+ 
+ .SH NOTES
+ 
+-If your process calls 
++If your process calls
+ .B fork
+-, then the child process will still have the pid of the parent process stored in libcap-ng's internal data. It is disallowed to do any kind of setcap operations because you would be crossing process boundaries. To correct this, if your program links against pthreads, then libcap-ng will use the 
++, then the child process will still have the pid of the parent process stored in libcap-ng's internal data. It is disallowed to do any kind of setcap operations because you would be crossing process boundaries. To correct this, if your program links against pthreads, then libcap-ng will use the
+ .B pthread_atfork
+-function (as a weak symbol) to reset the pid information to the new process automatically. You are not required to link against pthreads. You can call 
++function (as a weak symbol) to reset the pid information to the new process automatically. You are not required to link against pthreads. You can call
+ .B capng_setpid
+ and adjust the stored pid manually.
+ 
+@@ -27,7 +27,7 @@ None.
+ .SH "SEE ALSO"
+ 
+ .BR capng_get_caps_process (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_update.3 b/docs/capng_update.3
+index 1d3f661..a84e217 100644
+--- a/docs/capng_update.3
++++ b/docs/capng_update.3
+@@ -8,7 +8,7 @@ int capng_update(capng_act_t action, capng_type_t type,unsigned int capability);
+ 
+ .SH "DESCRIPTION"
+ 
+-capng_update will update the internal posix capabilities settings based on the options passed to it. The action should be either CAPNG_DROP to set the capability bit to 0, or CAPNG_ADD to set the capability bit to 1. The operation is performed on the capability set specified in the type parameter. The values are: CAPNG_EFFECTIVE, CAPNG_PERMITTED, CAPNG_INHERITABLE, CAPNG_BOUNDING_SET, or CAPNG_AMBIENT. The values may be or'ed together to perform the same operation on multiple sets. The last paramter, capability, is the capability define as given in linux/capability.h.
++capng_update will update the internal posix capabilities settings based on the options passed to it. The action should be either CAPNG_DROP to set the capability bit to 0, or CAPNG_ADD to set the capability bit to 1. The operation is performed on the capability set specified in the type parameter. The values are: CAPNG_EFFECTIVE, CAPNG_PERMITTED, CAPNG_INHERITABLE, CAPNG_BOUNDING_SET, or CAPNG_AMBIENT. The values may be or'ed together to perform the same operation on multiple sets. The last parameter, capability, is the capability define as given in linux/capability.h.
+ 
+ .SH "RETURN VALUE"
+ 
+@@ -17,7 +17,7 @@ This returns 0 on success and -1 on failure.
+ .SH "SEE ALSO"
+ 
+ .BR capng_updatev (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb
+diff --git a/docs/capng_updatev.3 b/docs/capng_updatev.3
+index d7973dd..8452dd1 100644
+--- a/docs/capng_updatev.3
++++ b/docs/capng_updatev.3
+@@ -9,7 +9,7 @@ int capng_updatev(capng_act_t action, capng_type_t type,
+ 
+ .SH "DESCRIPTION"
+ 
+-capng_updatev will update the internal posix capabilities settings based on the options passed to it. The action should be either CAPNG_DROP to set the capability bit to 0, or CAPNG_ADD to set the capability bit to 1. The operation is performed on the capability set specified in the type parameter. The values are: CAPNG_EFFECTIVE, CAPNG_PERMITTED, CAPNG_INHERITABLE, CAPNG_BOUNDING_SET, or CAPNG_AMBIENT. The values may be or'ed together to perform the same operation on multiple sets. The last paramter, capability, is the capability define as given in linux/capability.h.
++capng_updatev will update the internal posix capabilities settings based on the options passed to it. The action should be either CAPNG_DROP to set the capability bit to 0, or CAPNG_ADD to set the capability bit to 1. The operation is performed on the capability set specified in the type parameter. The values are: CAPNG_EFFECTIVE, CAPNG_PERMITTED, CAPNG_INHERITABLE, CAPNG_BOUNDING_SET, or CAPNG_AMBIENT. The values may be or'ed together to perform the same operation on multiple sets. The last parameter, capability, is the capability define as given in linux/capability.h.
+ 
+ This function differs from capng_update in that you may pass a list of capabilities. This list must be terminated with a -1 value.
+ 
+@@ -20,7 +20,7 @@ This returns 0 on success and -1 on failure.
+ .SH "SEE ALSO"
+ 
+ .BR capng_update (3),
+-.BR capabilities (7) 
++.BR capabilities (7)
+ 
+ .SH AUTHOR
+ Steve Grubb

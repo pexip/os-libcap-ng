@@ -1,0 +1,22 @@
+From: Håvard F. Aasen <havard.f.aasen@pfft.no>
+Date: Sat, 11 Jun 2022 13:10:40 +0200
+Subject: Correct section and whatis entry.
+
+Forwarded: https://github.com/stevegrubb/libcap-ng/pull/37
+---
+ docs/libdrop_ambient.7 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/docs/libdrop_ambient.7 b/docs/libdrop_ambient.7
+index 251a5d2..660ade4 100644
+--- a/docs/libdrop_ambient.7
++++ b/docs/libdrop_ambient.7
+@@ -1,6 +1,6 @@
+-.TH "LIBDROP_AMBIENT" "3" "Nov 2020" "Red Hat" "Libcap-ng API"
++.TH "LIBDROP_AMBIENT" "7" "Nov 2020" "Red Hat" "Libcap-ng API"
+ .SH NAME
+-libdrop_ambient
++libdrop_ambient \- force application started with ambient capabilities to drop them
+ 
+ .SH "DESCRIPTION
+ 

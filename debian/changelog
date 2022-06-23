@@ -1,3 +1,76 @@
+libcap-ng (0.8.3-1) unstable; urgency=medium
+
+  * New upstream release. Closes: #1004519
+  * Patches:
+    - Rebase patches.
+    - Add 03-python3-compatible-tests.patch
+    - Add 04-log-error.patch, taken from Fedora.
+    - Add 05-correct-section-and-whatis-entry.patch
+      Applies to libdrop_ambient.7
+    - Drop 02_fix_armel_segfault_memset.patch
+    - Change 01_manpage_description.patch -> 01_man-pages_fixes.patch
+      Includes typos, whatis entries and minor fixes in 'SEE ALSO' section.
+  * Include man-page for library 'drop_ambient'.
+  * Enable testsuite at build time.
+  * Add all hardening build flags.
+  * d/libcap-ng0.symbols:
+    - Update symbols.
+    - Add Build-Depends-Package field.
+  * Correct path for libdrop_ambient in dev package.
+  * Update Standards-Version to 4.6.1.
+  * d/copyright:
+    - Update for new upstream release.
+    - Add Upstream-Name field.
+    - Add new sections for debian/patches. Licensing files to LGPL-2.1+
+      Closes: #987984
+    - Add myself to debian/* section.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Thu, 23 Jun 2022 07:22:33 +0200
+
+libcap-ng (0.7.9-4) unstable; urgency=medium
+
+  * d/copyright: Update file location, doc -> docs
+  * Instead of excluding *.la files, we just delete them,
+    d/not-installed is removed since it superfluous.
+  * Package didn't build on Ubuntu. Simplifying d/rules when building multiple
+    Python 3 libraries.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Sat, 18 Jun 2022 11:08:24 +0200
+
+libcap-ng (0.7.9-3) unstable; urgency=medium
+
+  * New maintainer Closes: #1011366
+  * d/control:
+    - Change architecture to linux-any. Closes: #961966
+    - Apply multiarch hints for package libcap-ng-dev. Closes: #983476
+    - Bump debhelper to version 13.
+    - Remove no longer needed build-dependencies; dh-autoreconf and
+      autotools-dev
+    - Remove trailing-whitespace.
+    - Remove duplicated section field.
+    - Change to secure URI for homepage.
+    - Move package into Vcs repository.
+    - Document Rules-Requires-Root.
+    - Update package description.
+  * Drop d/compat, use debhelper-compat in d/control instead.
+  * d/not-installed: Don't install .la files.
+  * d/watch:
+    - Remove unnecessary comments and empty lines.
+    - Bump to version 4.
+    - Use secure URI.
+  * Change patches to gbp-pq format.
+  * d/p/02_fix_armel_segfault_memset.patch: Add DEP-3 compliant header.
+  * Build Python library for all supported Python3 versions and specify
+    correct module name regarding autodep8 tests. Closes: #973276
+  * Set upstream metadata fields: Bug-Database, Bug-Submit, Repository
+    and Repository-Browse.
+  * wrap-and-sort
+
+  [ Bastian Germann ]
+  * d/copyright: Convert to machine-readable format
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Fri, 10 Jun 2022 08:00:22 +0200
+
 libcap-ng (0.7.9-2.2) unstable; urgency=medium
 
   * Non-maintainer upload.

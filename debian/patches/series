@@ -1,3 +1,4 @@
-01_manpage_description.patch
-02_fix_armel_segfault_memset.patch
-03_fix_mask_dso_unloadable.patch
+01_man-pages_fixes.patch
+03-python3-compatible-tests.patch
+04-log-error.patch
+05-correct-section-and-whatis-entry.patch
