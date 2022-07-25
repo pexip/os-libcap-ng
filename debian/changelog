@@ -1,3 +1,9 @@
+libcap-ng (0.7.9-2.2+b1pexip1) pexip-bullseye; urgency=medium
+
+  * Rebuild to superceded bullseye version number.
+
+ -- Mark Hymers <mark.hymers@pexip.com>  Mon, 25 Jul 2022 11:28:47 +0100
+
 libcap-ng (0.7.9-2.2pexip2) pexip-bullseye; urgency=medium
 
   * Main bullseye build
