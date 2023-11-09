@@ -13,7 +13,7 @@ Build-Depends: debhelper (>= 9),
 Standards-Version: 3.9.8
 Section: libs
 Homepage: http://people.redhat.com/sgrubb/libcap-ng
-XS-Pexip-Upstream: http://deb.debian.org/debian/ bullseye
+XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
 
 Package: libcap-ng-dev
 Section: libdevel
