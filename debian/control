@@ -1,24 +1,27 @@
 Source: libcap-ng
+Section: libs
 Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
-XSBC-Pexip-Original-Maintainer: Pierre Chifflier <pollux@debian.org>
-Build-Depends: debhelper (>= 9),
-    dh-autoreconf,
-    dh-python <!nopython>,
-    autotools-dev,
-    linux-libc-dev,
-    swig <!nopython>,
-    libpython3-dev <!nopython>,
-    python3-dev:any <!nopython>
-Standards-Version: 3.9.8
-Section: libs
-Homepage: http://people.redhat.com/sgrubb/libcap-ng
+XSBC-Pexip-Original-Maintainer: Håvard F. Aasen <havard.f.aasen@pfft.no>
+Build-Depends: debhelper-compat (= 13),
+               dh-python <!nopython>,
+               libpython3-all-dev <!nopython>,
+               linux-libc-dev,
+               python3-all-dev:any <!nopython>,
+               swig <!nopython>,
+Standards-Version: 4.6.1
+Rules-Requires-Root: no
+Homepage: https://people.redhat.com/sgrubb/libcap-ng
+Vcs-Browser: https://salsa.debian.org/debian/libcap-ng
+Vcs-Git: https://salsa.debian.org/debian/libcap-ng.git
 XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
 
 Package: libcap-ng-dev
 Section: libdevel
-Architecture: any
-Depends: libcap-ng0 (= ${binary:Version}), ${misc:Depends}
+Architecture: linux-any
+Multi-Arch: same
+Depends: libcap-ng0 (= ${binary:Version}),
+         ${misc:Depends},
 Description: Development and header files for libcap-ng
  This library implements the user-space interfaces to the POSIX
  1003.1e capabilities available in Linux kernels.  These capabilities are
@@ -27,14 +30,16 @@ Description: Development and header files for libcap-ng
  .
  The libcap-ng library is intended to make programming with POSIX
  capabilities much easier than the traditional libcap library.
+ .
+ This package contains header files and static libraries.
 
 Package: libcap-ng0
-Section: libs
-Architecture: any
+Architecture: linux-any
 Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: An alternate POSIX capabilities library
+Pre-Depends: ${misc:Pre-Depends},
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+Description: alternate POSIX capabilities library
  This library implements the user-space interfaces to the POSIX
  1003.1e capabilities available in Linux kernels.  These capabilities are
  a partitioning of the all powerful root privilege into a set of distinct
@@ -43,12 +48,14 @@ Description: An alternate POSIX capabilities library
  The libcap-ng library is intended to make programming with POSIX
  capabilities much easier than the traditional libcap library.
  .
- This package contains header files and libraries for libcap-ng.
+ This package contains dynamic libraries for libcap-ng.
 
 Package: libcap-ng-utils
 Section: admin
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libcap-ng0 (= ${binary:Version})
+Architecture: linux-any
+Depends: libcap-ng0 (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends},
 Description: Utilities for analysing and setting file capabilities
  This library implements the user-space interfaces to the POSIX
  1003.1e capabilities available in Linux kernels.  These capabilities are
@@ -62,9 +69,11 @@ Description: Utilities for analysing and setting file capabilities
 
 Package: python3-cap-ng
 Section: python
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${python3:Depends}
-Provides: ${python3:Provides}
+Architecture: linux-any
+Depends: ${misc:Depends},
+         ${python3:Depends},
+         ${shlibs:Depends},
+Provides: ${python3:Provides},
 Build-Profiles: <!nopython>
 Description: Python3 bindings for libcap-ng
  This library implements the user-space interfaces to the POSIX
@@ -76,4 +85,3 @@ Description: Python3 bindings for libcap-ng
  capabilities much easier than the traditional libcap library.
  .
  This package contains the Python3 bindings for libcap-ng.
-

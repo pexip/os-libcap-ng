@@ -4,3 +4,4 @@ usr/lib/*/lib*.so
 usr/lib/*/pkgconfig/*.pc
 usr/share/aclocal/*
 usr/share/man/man3/*
+usr/share/man/man7/*

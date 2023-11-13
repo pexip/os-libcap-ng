@@ -1,6 +1,6 @@
 /*
  * pscap.c - A program that lists running processes with capabilities
- * Copyright (c) 2009,2012 Red Hat Inc., Durham, North Carolina.
+ * Copyright (c) 2009,2012,2020 Red Hat Inc.
  * All Rights Reserved.
  *
  * This software may be freely redistributed and/or modified under the
@@ -15,7 +15,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; see the file COPYING. If not, write to the
- * Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor
+ * Boston, MA 02110-1335, USA.
  *
  * Authors:
  *   Steve Grubb <sgrubb@redhat.com>
@@ -31,13 +32,45 @@
 #include <dirent.h>
 #include <fcntl.h>
 #include <pwd.h>
+#include <stdbool.h>
+#include <sys/stat.h>
 #include "cap-ng.h"
 
+#define CMD_LEN 16
+#define USERNS_MARK_LEN 2
 
 static void usage(void)
 {
 	fprintf(stderr, "usage: pscap [-a]\n");
 	exit(1);
+}
+
+/*
+ * Precise recursive checks for parent-child relation between namespaces 
+ * using ioctl() were avoided, because there didn't seem to be any case when
+ * we may dereference the namespace symlink in /proc/PID/ns for processes in
+ * user namespaces other than the current or child ones. Thus, the check just
+ * tries to dereference the link and checks that it does not point to the
+ * current NS.
+ */
+static bool in_child_userns(int pid)
+{
+	char ns_file_path[32];
+	struct stat statbuf;
+	ino_t own_ns_inode;
+	dev_t own_ns_dev;
+
+	if (stat("/proc/self/ns/user", &statbuf) < 0)
+		return false;
+
+	own_ns_inode = statbuf.st_ino;
+	own_ns_dev = statbuf.st_dev;
+
+	snprintf(ns_file_path, 32, "/proc/%d/ns/user", pid);
+	if (stat(ns_file_path, &statbuf) < 0)
+		return false;
+
+	return statbuf.st_ino != own_ns_inode || statbuf.st_dev != own_ns_dev;
 }
 
 int main(int argc, char *argv[])
@@ -66,7 +99,7 @@ int main(int argc, char *argv[])
 	while (( ent = readdir(d) )) {
 		int pid, ppid, uid = -1, euid = -1;
 		char buf[100];
-		char *tmp, cmd[16], state, *name = NULL;
+		char *tmp, cmd[CMD_LEN + USERNS_MARK_LEN], state, *name = NULL;
 		int fd, len;
 		struct passwd *p;
 
@@ -109,11 +142,11 @@ int main(int argc, char *argv[])
 			continue;
 
 		// now get the capabilities
-		capng_clear(CAPNG_SELECT_BOTH);
+		capng_clear(CAPNG_SELECT_ALL);
 		capng_setpid(pid);
 		if (capng_get_caps_process())
 			continue;
-		
+
 		// And print out anything with capabilities
 		caps = capng_have_capabilities(CAPNG_SELECT_CAPS);
 		if (caps > CAPNG_NONE) {
@@ -141,9 +174,9 @@ int main(int argc, char *argv[])
 				}
 				fclose(f);
 			}
-			
+
 			if (header == 0) {
-				printf("%-5s %-5s %-10s  %-16s  %s\n",
+				printf("%-5s %-5s %-10s  %-18s  %s\n",
 				    "ppid", "pid", "name", "command",
 				    "capabilities");
 				header = 1;
@@ -160,24 +193,40 @@ int main(int argc, char *argv[])
 					name = p->pw_name;
 				// If not taking this branch, use last val
 			}
+
+			if (in_child_userns(pid))
+				strcat(cmd, " *");
+
 			if (name) {
-				printf("%-5d %-5d %-10s  %-16s  ", ppid, pid,
+				printf("%-5d %-5d %-10s  %-18s  ", ppid, pid,
 					name, cmd);
 			} else
-				printf("%-5d %-5d %-10d  %-16s  ", ppid, pid,
+				printf("%-5d %-5d %-10d  %-18s  ", ppid, pid,
 					uid, cmd);
 			if (caps == CAPNG_PARTIAL) {
 				capng_print_caps_text(CAPNG_PRINT_STDOUT,
 							CAPNG_PERMITTED);
+				if (capng_have_capabilities(
+					    CAPNG_SELECT_AMBIENT) > CAPNG_NONE)
+					printf(" @");
 				if (capng_have_capabilities(CAPNG_SELECT_BOUNDS)
-							 == CAPNG_FULL)
+							 > CAPNG_NONE)
 					printf(" +");
 				printf("\n");
-			} else
-				printf("full\n");
+			} else {
+				printf("full");
+				if (capng_have_capabilities(
+					    CAPNG_SELECT_AMBIENT) > CAPNG_NONE)
+					printf(" @");
+				if (capng_have_capabilities(CAPNG_SELECT_BOUNDS)
+							 > CAPNG_NONE)
+					printf(" +");
+				printf("\n");
+			}
 		}
 	}
-	closedir(d);	
+	closedir(d);
 	return 0;
 }
+
 
