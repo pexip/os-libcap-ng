@@ -3,12 +3,12 @@ Section: libs
 Priority: optional
 Maintainer: Håvard F. Aasen <havard.f.aasen@pfft.no>
 Build-Depends: debhelper-compat (= 13),
-               dh-python <!nopython>,
+               dh-sequence-python3 <!nopython>,
                libpython3-all-dev <!nopython>,
                linux-libc-dev,
                python3-all-dev:any <!nopython>,
                swig <!nopython>,
-Standards-Version: 4.6.1
+Standards-Version: 4.7.0
 Rules-Requires-Root: no
 Homepage: https://people.redhat.com/sgrubb/libcap-ng
 Vcs-Browser: https://salsa.debian.org/debian/libcap-ng

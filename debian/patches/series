@@ -1,4 +1,2 @@
-01_man-pages_fixes.patch
-03-python3-compatible-tests.patch
-04-log-error.patch
-05-correct-section-and-whatis-entry.patch
+use-version-specific-python3-config.patch
+fix-python-path-when-invoking-py-compile.patch
