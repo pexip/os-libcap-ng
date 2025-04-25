@@ -1,3 +1,73 @@
+libcap-ng (0.8.5-4) unstable; urgency=medium
+
+  * Fix lintian warnings from autopkgtest.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Wed, 27 Nov 2024 21:46:55 +0100
+
+libcap-ng (0.8.5-3) unstable; urgency=medium
+
+  * Add upstream test-suites as autopkgtest.
+  * Remove d/libcap-ng-dev.dirs, no longer needed.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Sun, 20 Oct 2024 09:26:34 +0200
+
+libcap-ng (0.8.5-2) unstable; urgency=medium
+
+  [ Helmut Grohne ]
+  * Fix FTBFS with nopython build profile. Closes: #1078857
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Sun, 18 Aug 2024 13:24:22 +0200
+
+libcap-ng (0.8.5-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Patches:
+    - Refresh use-version-specific-python3-config.patch.
+    - Add patch from upstream to fix Python path when configuring.
+    - Drop remove-python-global-exception-handler-since-its-deprecat.patch,
+      included upstream.
+  * Update Standards-version to 4.7.0, no changes needed.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Wed, 17 Apr 2024 07:32:52 +0200
+
+libcap-ng (0.8.4-2) unstable; urgency=medium
+
+  * Add patch from upstream to fix ftbfs. Closes: #1063398
+  * Update copyright year for myself.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Wed, 07 Feb 2024 23:44:50 +0100
+
+libcap-ng (0.8.4-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Download source from GitHub.
+  * Patches:
+    - Drop all current patches, included upstream or no longer needed
+    - Add new patch to specify python3-config.
+  * Refresh copyright file.
+  * Drop 'without-python', upstream no longer supports Python 2.
+  * Create 'NEWS' file before running autoreconf.
+  * Install Python modules in correct location.
+  * Update upstream documentation shipped with the package.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Sat, 23 Dec 2023 13:08:34 +0100
+
+libcap-ng (0.8.3-3) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Sun, 03 Dec 2023 16:20:31 +0100
+
+libcap-ng (0.8.3-2) experimental; urgency=medium
+
+  * Move files to /usr Closes: #947323
+  * Update Standards-Version to 4.6.2, no changes needed.
+  * Drop 'with=autoreconf'
+  * Change to dh-sequence-python3
+  * Drop d/dirs, no longer needed.
+
+ -- Håvard F. Aasen <havard.f.aasen@pfft.no>  Mon, 27 Nov 2023 07:30:28 +0100
+
 libcap-ng (0.8.3-1+b3+pexip24u2) pexip-bookworm; urgency=medium
 
   * New versioning scheme
